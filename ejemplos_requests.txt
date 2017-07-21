@@ -1,0 +1,11 @@
+curl -X GET http://127.0.0.1:8000/api/hello
+
+curl -X GET http://127.0.0.1:8000/api/hello/ -H 'Authorization: Bearer KtUUPGehkb5OD4Ef8q5wXJc7JWKgBF'
+
+client id:
+dp2fAuKD5bJrBG8PojS2d5cOhaqRFWTJe872qnxC
+
+client secret:
+P7VTH0UZy4d9ZEcNc1IiydIVR94Z8NLFHj4GfQTWNQvOKKjERVVKHORbKZto74kxgcPixWPCYJ4ScMvX6VhHgwPKFORozBCem6FyNTHzbI5uRr3apRI80qPGbKy1zAfL
+
+curl --data "token=zMSrLDFBDVAsDfSJlJswjFo9XJBv43&client_id=dp2fAuKD5bJrBG8PojS2d5cOhaqRFWTJe872qnxC" http://localhost:8000/o/revoke_token/

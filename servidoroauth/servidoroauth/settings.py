@@ -37,26 +37,34 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
-    'corsheaders',
-    'default',
-    'api',
+    'oauth2_provider', #necesario para el servidor oauth
+    'corsheaders', #necesario para hacer llamadas desde otro dominio
+    'default', #app que tiene vistas y templates generales
+    'api', #app para una api de ejemplo
+    'otros', #otra app de ejemplo
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', #middleware para CORS
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTHENTICATION_BACKENDS = (
+    'oauth2_provider.backends.OAuth2Backend',
+    # Uncomment following if you want to access the admin
+    'django.contrib.auth.backends.ModelBackend'
+)
+
 ROOT_URLCONF = 'servidoroauth.urls'
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True #configuración CORS para permitir llamadas a la api desde cualquier dominio
 
 TEMPLATES = [
     {
