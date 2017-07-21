@@ -17,9 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
+#endpoint de prueba de la API
+from api.views import ApiEndpoint
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     url(r'^accounts/login/$', auth_views.LoginView.as_view(template_name='login.html'), name="login"),
-    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(), name="logout")
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(), name="logout"),
+    url(r'^api/hello', ApiEndpoint.as_view()),
 ]
