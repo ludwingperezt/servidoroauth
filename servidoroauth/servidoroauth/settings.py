@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'default', #app que tiene vistas y templates generales
     'api', #app para una api de ejemplo
     'otros', #otra app de ejemplo
+
+    'rest_framework',
+    'ejemplodrf',
 ]
 
 MIDDLEWARE = [
@@ -51,16 +54,33 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware', #Permite hacer login con token mediente el sistema de usuarios de django (SIN oauth2)
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+#SE habilita para poder hacer login mediante token en el sistema de usuarios de django (SIN oauth2)
 AUTHENTICATION_BACKENDS = (
     'oauth2_provider.backends.OAuth2Backend',
     # Uncomment following if you want to access the admin
     'django.contrib.auth.backends.ModelBackend'
 )
+
+#Autenticación OAuth2 a los endpoints de DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+#Scopes para DRF
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'productos': 'Access to your products'}
+}
 
 ROOT_URLCONF = 'servidoroauth.urls'
 

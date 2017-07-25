@@ -31,4 +31,6 @@ urlpatterns = [
     #endpoints de ejemplo de acceso
     url(r'^secret$', secret_page, name='secret'),
     url(r'^secreta$', secreta, name='secreta'),
+
+    url(r'^drf/', include('ejemplodrf.urls')),
 ]

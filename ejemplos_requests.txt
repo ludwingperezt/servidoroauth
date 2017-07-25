@@ -9,3 +9,39 @@ client secret:
 P7VTH0UZy4d9ZEcNc1IiydIVR94Z8NLFHj4GfQTWNQvOKKjERVVKHORbKZto74kxgcPixWPCYJ4ScMvX6VhHgwPKFORozBCem6FyNTHzbI5uRr3apRI80qPGbKy1zAfL
 
 curl --data "token=zMSrLDFBDVAsDfSJlJswjFo9XJBv43&client_id=dp2fAuKD5bJrBG8PojS2d5cOhaqRFWTJe872qnxC" http://localhost:8000/o/revoke_token/
+
+
+
+-- cliente api rest resource owner password-based
+CKivCK2zGkMhTZH0b3vouy9Jk1JSdP8lQCTTPY6M
+rpKpBeevTtmAbcoqHa7PDw1UVJ667brUH93tc6XXZQidjKR9Xwh5D5TSG3HI6Y0YT4qlLGY6AwKgAR4xuDvwMqtYWFVUHAwVG4tAAbF2iawK934cCUgZ0Oo7CEcWH1yd
+
+curl -X POST -d "grant_type=password&username=admin&password=pass1234" -u"CKivCK2zGkMhTZH0b3vouy9Jk1JSdP8lQCTTPY6M:rpKpBeevTtmAbcoqHa7PDw1UVJ667brUH93tc6XXZQidjKR9Xwh5D5TSG3HI6Y0YT4qlLGY6AwKgAR4xuDvwMqtYWFVUHAwVG4tAAbF2iawK934cCUgZ0Oo7CEcWH1yd" http://localhost:8000/o/token/
+
+{
+"token_type": "Bearer", 
+"refresh_token": "bqOAG3Zz5fpKqCEa32rOw1j6Uvpe5S", 
+"expires_in": 36000, 
+"access_token": "VoaBxRaOO9q5zgvwvQShN7HyLSUIpR", 
+"scope": "read write productos"
+}
+
+curl -H "Authorization: Bearer VoaBxRaOO9q5zgvwvQShN7HyLSUIpR" http://localhost:8000/drf/productos/
+
+
+curl -X POST -d "grant_type=password&username=admin&password=pass1234&scope=read" -u"CKivCK2zGkMhTZH0b3vouy9Jk1JSdP8lQCTTPY6M:rpKpBeevTtmAbcoqHa7PDw1UVJ667brUH93tc6XXZQidjKR9Xwh5D5TSG3HI6Y0YT4qlLGY6AwKgAR4xuDvwMqtYWFVUHAwVG4tAAbF2iawK934cCUgZ0Oo7CEcWH1yd" http://localhost:8000/o/token/
+{
+"refresh_token": "37s5jqZKdGi17dfR73D6baudGnAaW6",
+"token_type": "Bearer",
+"expires_in": 36000,
+"scope": "read",
+"access_token": "zggn9zsoVlEtdiTvQyCVwHRqKLp5bT"
+}
+
+-H "Content-Type: application/json"
+curl -H "Authorization: Bearer zggn9zsoVlEtdiTvQyCVwHRqKLp5bT" -H "Content-Type: application/json" -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "07","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
+curl -H "Authorization: Bearer VoaBxRaOO9q5zgvwvQShN7HyLSUIpR" -H "Content-Type: application/json" -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "07","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
+
+curl -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "07","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
+
+curl -H "Authorization: Bearer zggn9zsoVlEtdiTvQyCVwHRqKLp5bT" http://localhost:8000/drf/productos/
