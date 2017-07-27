@@ -1,0 +1,30 @@
+Client_id / secret:
+3X9UwDr41sYGoR5zwZEwfQ1xkNjBvPv2AUGVRpgr
+ysiTl4sq4YcItWrQjCNsJOHOs2CMgGFS1nTbvSMmy5dTdvdGCxUWe2lxxO0obn5TLgNJPZBF9cqckey86yYed9oVbuzeDwvHPoXDa3kz5R5SfBS7pGDOTYh3sIVEDrJt
+
+------------------------------------ CON ACCESO GENERAL
+
+curl -X POST -d "grant_type=password&username=admin&password=pass1234" -u"3X9UwDr41sYGoR5zwZEwfQ1xkNjBvPv2AUGVRpgr:ysiTl4sq4YcItWrQjCNsJOHOs2CMgGFS1nTbvSMmy5dTdvdGCxUWe2lxxO0obn5TLgNJPZBF9cqckey86yYed9oVbuzeDwvHPoXDa3kz5R5SfBS7pGDOTYh3sIVEDrJt" http://localhost:8000/o/token/
+{"expires_in": 36000, "scope": "write read productos", "refresh_token": "A0LdixQkMGzMzWQtwEYmeZGlbnCPYd", "access_token": "eoNyqs6ZHjg5PyclzXMdQuNyWly5z1", "token_type": "Bearer"}
+
+eoNyqs6ZHjg5PyclzXMdQuNyWly5z1
+curl -H "Authorization: Bearer eoNyqs6ZHjg5PyclzXMdQuNyWly5z1" http://127.0.0.1:8000/drf/productos/
+curl -H "Authorization: Bearer eoNyqs6ZHjg5PyclzXMdQuNyWly5z1" -H "Content-Type: application/json" -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "5667","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
+
+------------------------------------ CON ACCESO RESTRINGIDO
+
+curl -X POST -d "grant_type=password&username=admin&password=pass1234&scope=read" -u"3X9UwDr41sYGoR5zwZEwfQ1xkNjBvPv2AUGVRpgr:ysiTl4sq4YcItWrQjCNsJOHOs2CMgGFS1nTbvSMmy5dTdvdGCxUWe2lxxO0obn5TLgNJPZBF9cqckey86yYed9oVbuzeDwvHPoXDa3kz5R5SfBS7pGDOTYh3sIVEDrJt" http://localhost:8000/o/token/
+{"expires_in": 36000, "scope": "read", "refresh_token": "XyRH7mgXVv6wFCVhUJ3AwSUL0YHlaz", "access_token": "qZlqquezQE03TirzhUeH1n5v9htQmd", "token_type": "Bearer"}
+
+qZlqquezQE03TirzhUeH1n5v9htQmd
+curl -H "Authorization: Bearer qZlqquezQE03TirzhUeH1n5v9htQmd" http://127.0.0.1:8000/drf/productos/
+curl -H "Authorization: Bearer qZlqquezQE03TirzhUeH1n5v9htQmd" -H "Content-Type: application/json" -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "5667","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
+
+------------------------------------ CON ACCESO RESTRINGIDO (SCOPE=PRODUCTOS)
+
+curl -X POST -d "grant_type=password&username=admin&password=pass1234&scope=productos" -u"3X9UwDr41sYGoR5zwZEwfQ1xkNjBvPv2AUGVRpgr:ysiTl4sq4YcItWrQjCNsJOHOs2CMgGFS1nTbvSMmy5dTdvdGCxUWe2lxxO0obn5TLgNJPZBF9cqckey86yYed9oVbuzeDwvHPoXDa3kz5R5SfBS7pGDOTYh3sIVEDrJt" http://localhost:8000/o/token/
+{"expires_in": 36000, "scope": "productos", "refresh_token": "eI8icOvQwlPVOjtObnSL5td7oF6qi7", "access_token": "CY2g14o7FdN128ESbZjxITXFkMA8KM", "token_type": "Bearer"}
+
+CY2g14o7FdN128ESbZjxITXFkMA8KM
+curl -H "Authorization: Bearer CY2g14o7FdN128ESbZjxITXFkMA8KM" http://127.0.0.1:8000/drf/productos/
+curl -H "Authorization: Bearer CY2g14o7FdN128ESbZjxITXFkMA8KM" -H "Content-Type: application/json" -X POST http://localhost:8000/drf/productos/ -d '{"codigo": "5667","nombre": "cuatro","precio": "1.00","existencia": "1.000"}'
